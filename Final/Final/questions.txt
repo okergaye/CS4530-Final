@@ -1,0 +1,1 @@
+How do i get the welmcone thing to go away without haveing to interact with the view????
