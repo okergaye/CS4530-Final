@@ -1,1 +1,8 @@
 How do i get the welmcone thing to go away without haveing to interact with the view????
+
+How do i connect my damn glkkit contoler to my main menu?
+
+startGameView is getting called twice// solved , touchevents should be .touchdown
+
+How do i get a scrolling banner effect for my welcome and game over screens
+

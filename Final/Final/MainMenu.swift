@@ -8,19 +8,31 @@
 
 import UIKit
 
-class MainMenu: UIViewController, MainMenuViewDelegate {
-    
-    
+
+
+class MainMenu: UIViewController, menuDelgate {
     
     //vars
     var welcomeState: Bool!
     let menu: MainMenuView = MainMenuView()
-
+    let highScoreView: HighScoreView = HighScoreView()
+    let gameViewController: GameViewController = GameViewController()
     
     //delegate fucntions
     func startGameView() {
+        //this is being called twice, why?
         debugPrint("menuDel here")
-        view = GameView().view
+        view = gameViewController.view
+    }
+    
+    func pushHighScoreView() {
+        debugPrint("pushScoreView here")
+        let T: UIViewController = UIViewController()
+        T.view = HighScoreView()
+        var stockerplzWhyNoPush = 0
+        navigationController?.pushViewController(T, animated: true)
+        
+        //view = HighScoreView()
     }
     
     
@@ -29,20 +41,17 @@ class MainMenu: UIViewController, MainMenuViewDelegate {
         super.viewDidLoad()
 
         menu.Welcome.isHidden = welcomeState
-        
+        menu.menuDel = self
+
         //display welcome thing
         //if it is false. make it not, then time display
         
         //if its the first time opening, or returning after minimizing(nomater where they left at, return here)
        
-        view = menu
-
-        
-        //view.backgroundColor = .green
-        
-        
-        
-        
+        let thisisnotmenuanymore = 0
+        // view = menu
+        view = highScoreView
+        // view = gameViewController.view
         
         // Do any additional setup after loading the view, typically from a nib.
     }

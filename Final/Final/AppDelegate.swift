@@ -1,9 +1,11 @@
 //
+//
 //  AppDelegate.swift
 //  Final
 //
 //  Created by Macintosh on 4/9/18.
 //  Copyright © 2018 Osama Kergaye. All rights reserved.
+//
 //
 
 import UIKit
@@ -20,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainMenu = MainMenu()
         mainMenu.welcomeState = false
         window?.rootViewController = mainMenu
+      //  window?.rootViewController = GameViewController()
         window?.makeKeyAndVisible()
        // Model.dictionary = getDicWordsArray()
         //restoreAlarmData()
@@ -45,25 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     
-    func restoreAlarmData(){
-        
-        //do file pathing stuff
-        let filePath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let path: String = filePath + "thissucksbutIAMLEARNING.txt"
-        let url: URL = URL(fileURLWithPath: path)
-        
-        //now try and restore
-        var data: Data
-        do{
-            data = try Data(contentsOf: url)
-        }catch{
-            data = Data()
-        }
-        
-        //turn it back into my struct file, get it out of the stored json
-       // Model.loadJson(from: data)
-        
-    }
+ 
     
     
     

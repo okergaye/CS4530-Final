@@ -9,26 +9,24 @@
 import Foundation
 import UIKit
 
-
 //delegate protocal for controler interactoin
-protocol MainMenuViewDelegate: class {
+protocol menuDelgate: class {
     
     func startGameView()
+    func pushHighScoreView()
    
 }
 
+
 class MainMenuView: UIView {
     
-    weak var menuDel: MainMenuViewDelegate? = nil
+    weak var menuDel: menuDelgate?
 
     var StartGameButton: UIButton!
     var Title: UILabel!
     var HighScoreButton: UIButton!
     var Welcome: UILabel!
 
-    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,7 +34,7 @@ class MainMenuView: UIView {
         //backgroundColor = UIColor(patternImage: UIImage(named: "splash.jpg")!)
         
         //this one looks better but has to be wirtin in a comment first
-         layer.contents = #imageLiteral(resourceName: "splash.jpg").cgImage
+        layer.contents = #imageLiteral(resourceName: "splash.jpg").cgImage
     
         let buttonColor = UIColor.black.withAlphaComponent(0.4)
         
@@ -47,37 +45,45 @@ class MainMenuView: UIView {
         
         Title.textAlignment = .center
         Title.baselineAdjustment = .alignCenters
-        Title.backgroundColor = .white
+        Title.backgroundColor = UIColor.white.withAlphaComponent(0.0)
+        Title.textColor = .white
         
         Welcome.textAlignment = .center
         Welcome.baselineAdjustment = .alignCenters
-        Welcome.backgroundColor = .cyan
+        Welcome.backgroundColor = buttonColor
         Welcome.isHidden = false
+        Welcome.textColor = .white
         
         StartGameButton.backgroundColor = buttonColor
         HighScoreButton.backgroundColor = buttonColor
         
-        
-        
-        
-        StartGameButton.addTarget(self, action: #selector(startGameFunc) , for: UIControlEvents.allEvents)
+        StartGameButton.addTarget(self, action: #selector(startGameFunc) , for: .touchDown)
+        HighScoreButton.addTarget(self, action: #selector(highScoreButtonPress), for: UIControlEvents.touchDown)
         
         addSubview(HighScoreButton)
         addSubview(Title)
         addSubview(StartGameButton)
         addSubview(Welcome)
-   
+
         
     }
     
     @objc func startGameFunc(sender: UIButton){
        animateButton(sender: sender)
         debugPrint("starGameFunc in MainMenuView")
-       menuDel?.startGameView()
-        
-        
+      // menuDel?.startGameView()
+
     }
     
+    
+    @objc func highScoreButtonPress(sender: UIButton){
+        animateButton(sender: sender)
+        debugPrint("highscorebuttonpreessss in MainMenuView")
+        
+        menuDel?.pushHighScoreView()
+
+    }
+
     
     
    
@@ -86,9 +92,7 @@ class MainMenuView: UIView {
         layoutSubviews()
     }
     
-    
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         let fontConst = UIFont.systemFont(ofSize: frame.width  * 0.09)
@@ -96,19 +100,25 @@ class MainMenuView: UIView {
         StartGameButton.titleLabel?.font = fontConst
         Title.font = fontConst
         Welcome.font = fontConst
+        HighScoreButton.titleLabel?.font = fontConst
 
         StartGameButton.setTitle("Start Game", for: .normal)
-        Welcome.text = "TEST"
+        Welcome.text = "WELCOME!!"
         Title.text = "Flay-O-Final"
-
+        HighScoreButton.setTitle("High Scores", for: .normal)
         
         Title.frame = CGRect(x: 0, y: 0, width: frame.width , height: frame.height * 1/10)
         StartGameButton.frame = CGRect(x: 0, y: frame.height * 5/8 , width: frame.width, height: frame.height * 1 / 8)
         HighScoreButton.frame = CGRect(x: 0, y: frame.height * 0.775 , width: frame.width, height: frame.height * 1 / 8)
-        Welcome.frame = CGRect(x: 0, y: frame.height * 5/10, width: frame.width , height: frame.height * (2/10))
-
+        Welcome.frame = CGRect(x: 0, y: frame.height * 2/10, width: frame.width , height: frame.height * (1/8))
     }
     
+    
+    
+    
+    
+    
+    // staticish stuff beloew this point.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         print("dumapple")
@@ -122,10 +132,8 @@ class MainMenuView: UIView {
                        usingSpringWithDamping: CGFloat(1.90),
                        initialSpringVelocity: CGFloat(6.0),
                        options: UIViewAnimationOptions.allowUserInteraction,
-                       animations: {
-                        sender.transform = CGAffineTransform.identity
-        },
-                       completion: { Void in()  })
+                       animations: {sender.transform = CGAffineTransform.identity},
+                       completion: {Void in()} )
     }
     
     
