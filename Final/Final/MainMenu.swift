@@ -28,10 +28,10 @@ class MainMenu: UIViewController, menuDelgate {
     func pushHighScoreView() {
         debugPrint("pushScoreView here")
         let T: UIViewController = UIViewController()
-        T.view = HighScoreView()
-        var stockerplzWhyNoPush = 0
+        T.view = highScoreView
+        navigationController?.isNavigationBarHidden = false
+
         navigationController?.pushViewController(T, animated: true)
-        
         //view = HighScoreView()
     }
     
@@ -49,8 +49,8 @@ class MainMenu: UIViewController, menuDelgate {
         //if its the first time opening, or returning after minimizing(nomater where they left at, return here)
        
         let thisisnotmenuanymore = 0
-        // view = menu
-        view = highScoreView
+         view = menu
+       // view = highScoreView
         // view = gameViewController.view
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -58,10 +58,14 @@ class MainMenu: UIViewController, menuDelgate {
 
     override func viewDidAppear(_ animated: Bool) {
         menu.Welcome.isHidden = welcomeState
+        navigationController?.isNavigationBarHidden = true
 
         if menu.Welcome.isHidden == false {
             // menu.Welcome.isHidden = true
-            Timer.scheduledTimer(timeInterval: 2.0, target: menu, selector: #selector(menu.hideLabel), userInfo: nil, repeats: false)
+          //  Timer.scheduledTimer(timeInterval: 2.0, target: menu, selector: #selector(menu.hideLabel), userInfo: nil, repeats: false)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0 , execute: {
+                self.menu.hideLabel()
+            })
         }
     }
     

@@ -89,7 +89,6 @@ class MainMenuView: UIView {
    
     @objc func hideLabel() {
         Welcome.isHidden = true
-        layoutSubviews()
     }
     
 

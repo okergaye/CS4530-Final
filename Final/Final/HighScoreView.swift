@@ -36,6 +36,7 @@ class HighScoreView: UIView {
         Board.axis = .vertical
         Board.distribution = .fill
         
+       // Board.addArrangedSubview(Title)
        
         addSubview(Title)
         addSubview(Board)
@@ -52,8 +53,8 @@ class HighScoreView: UIView {
         
         
         Title.text = "Top Players!"
-        Board.frame = frame
-     // Board.frame = CGRect(x: 0, y: 0 - (frame.height * 1/10), width: frame.width , height: frame.height - (frame.height * 1/10))
+       // Board.frame = frame
+        Board.frame = CGRect(x: 0, y: 0 - (frame.height * 1/10), width: frame.width , height: frame.height - (frame.height * 1/10))
         Title.frame = CGRect(x: 0, y: 0, width: frame.width , height: frame.height * 1/10)
     }
     
