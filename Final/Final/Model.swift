@@ -15,11 +15,13 @@ class GAMESTATE: Codable{
     var showWelcome: Bool = false
     var score: Int
     var inProgress: Bool
+    var level: Int
     
     init() {
         score = 0
         inProgress = false
         showWelcome = false
+        level = 0
     }
     
 
@@ -29,7 +31,10 @@ class GAMESTATE: Codable{
 
 class Model {
     
-    
+    func GameLoop(){
+        
+        
+    }
     
     
 

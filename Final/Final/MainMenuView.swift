@@ -9,13 +9,7 @@
 import Foundation
 import UIKit
 
-//delegate protocal for controler interactoin
-protocol menuDelgate: class {
-    
-    func startGameView()
-    func pushHighScoreView()
-   
-}
+
 
 
 class MainMenuView: UIView {
@@ -68,29 +62,7 @@ class MainMenuView: UIView {
         
     }
     
-    @objc func startGameFunc(sender: UIButton){
-       animateButton(sender: sender)
-        debugPrint("starGameFunc in MainMenuView")
-      // menuDel?.startGameView()
-
-    }
-    
-    
-    @objc func highScoreButtonPress(sender: UIButton){
-        animateButton(sender: sender)
-        debugPrint("highscorebuttonpreessss in MainMenuView")
-        
-        menuDel?.pushHighScoreView()
-
-    }
-
-    
-    
-   
-    @objc func hideLabel() {
-        Welcome.isHidden = true
-    }
-    
+  
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -113,6 +85,39 @@ class MainMenuView: UIView {
     }
     
     
+    //button recivers beloew
+    @objc func startGameFunc(sender: UIButton){
+        debugPrint("starGameFunc in MainMenuView")
+        menuDel?.animateButton(sender: sender)
+        menuDel?.startGameView()
+        
+    }
+    
+    
+    @objc func highScoreButtonPress(sender: UIButton){
+        menuDel?.animateButton(sender: sender)
+        debugPrint("highscorebuttonpreessss in MainMenuView")
+        
+        menuDel?.pushHighScoreView()
+        
+    }
+    
+    @objc func hideLabel() {
+        Welcome.isHidden = true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -123,18 +128,7 @@ class MainMenuView: UIView {
         print("dumapple")
     }
     
-    //animates button press
-    func animateButton(sender: UIButton) {
-        sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        UIView.animate(withDuration: 2.0,
-                       delay: 0,
-                       usingSpringWithDamping: CGFloat(1.90),
-                       initialSpringVelocity: CGFloat(6.0),
-                       options: UIViewAnimationOptions.allowUserInteraction,
-                       animations: {sender.transform = CGAffineTransform.identity},
-                       completion: {Void in()} )
-    }
-    
+  
     
 }
 

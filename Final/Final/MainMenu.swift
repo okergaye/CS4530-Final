@@ -8,7 +8,15 @@
 
 import UIKit
 
-
+//delegate protocal for controler interactoin
+protocol menuDelgate: class {
+    
+    func startGameView()
+    func pushHighScoreView()
+    func animateButton(sender: UIButton)
+    func popHSView()
+    
+}
 
 class MainMenu: UIViewController, menuDelgate {
     
@@ -18,22 +26,7 @@ class MainMenu: UIViewController, menuDelgate {
     let highScoreView: HighScoreView = HighScoreView()
     let gameViewController: GameViewController = GameViewController()
     
-    //delegate fucntions
-    func startGameView() {
-        //this is being called twice, why?
-        debugPrint("menuDel here")
-        view = gameViewController.view
-    }
     
-    func pushHighScoreView() {
-        debugPrint("pushScoreView here")
-        let T: UIViewController = UIViewController()
-        T.view = highScoreView
-        navigationController?.isNavigationBarHidden = false
-
-        navigationController?.pushViewController(T, animated: true)
-        //view = HighScoreView()
-    }
     
     
     //main class fucntions
@@ -42,18 +35,12 @@ class MainMenu: UIViewController, menuDelgate {
 
         menu.Welcome.isHidden = welcomeState
         menu.menuDel = self
-
-        //display welcome thing
-        //if it is false. make it not, then time display
+        highScoreView.menuDel = self
         
         //if its the first time opening, or returning after minimizing(nomater where they left at, return here)
        
-        let thisisnotmenuanymore = 0
          view = menu
-       // view = highScoreView
-        // view = gameViewController.view
         
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -61,7 +48,6 @@ class MainMenu: UIViewController, menuDelgate {
         navigationController?.isNavigationBarHidden = true
 
         if menu.Welcome.isHidden == false {
-            // menu.Welcome.isHidden = true
           //  Timer.scheduledTimer(timeInterval: 2.0, target: menu, selector: #selector(menu.hideLabel), userInfo: nil, repeats: false)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0 , execute: {
                 self.menu.hideLabel()
@@ -83,6 +69,46 @@ class MainMenu: UIViewController, menuDelgate {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    
+    
+    
+    
+    //delegate fucntions
+    
+    func startGameView() {
+        debugPrint("menuDel here")
+        navigationController?.pushViewController(gameViewController, animated: true)
+    }
+    
+    func popHSView() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func pushHighScoreView() {
+        debugPrint("pushScoreView here")
+        let T: UIViewController = UIViewController()
+        T.view = highScoreView
+        navigationController?.isNavigationBarHidden = false
+        
+        navigationController?.pushViewController(T, animated: true)
+        T.navigationController?.isNavigationBarHidden = true
+        
+    }
+    
+    
+    //animates button press
+    func animateButton(sender: UIButton) {
+        sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(1.90),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIViewAnimationOptions.allowUserInteraction,
+                       animations: {sender.transform = CGAffineTransform.identity},
+                       completion: {Void in()} )
+    }
+    
     
 
 }

@@ -20,22 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        UIButton.appearance().tintColor = .white
+       // UIButton.appearance().tintColor = .white
+        
         
         mainMenu = MainMenu()
         mainMenu.welcomeState = false
-        let anotherspotswitchingthings = 0
-        //window?.rootViewController = mainMenu
-        window?.rootViewController = UINavigationController(rootViewController: mainMenu)
-        mainMenu.navigationController?.isNavigationBarHidden = true
+        //window?.rootViewController = UINavigationController(rootViewController: mainMenu)
+        window?.rootViewController = GameViewController()
 
-      //  window?.rootViewController = GameViewController()
+        mainMenu.navigationController?.isNavigationBarHidden = true
         window?.makeKeyAndVisible()
-       // Model.dictionary = getDicWordsArray()
-        //restoreAlarmData()
         
         
-        // Override point for customization after application launch.
         return true
     }
 

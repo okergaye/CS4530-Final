@@ -4,11 +4,20 @@ How do i get the welmcone thing to go away without haveing to interact with the 
 
 How do i connect my damn glkkit contoler to my main menu?
 
+
 startGameView is getting called twice
 // solved , touchevents should be .touchdown
 
+
 How do i get a scrolling banner effect for my welcome and game over screens
+To hard, use two views and cycle them...
+
 
 How do i get things to push properly.
 set a navicont in app del, but then make it hidden, so that mainmenu's navicont is actualy real, and can be used
+
+
+How do I get seperate parts of a string to algin diffrently?
+
+How do I know where the sprite centers are, and how do i make a sprite.
 
