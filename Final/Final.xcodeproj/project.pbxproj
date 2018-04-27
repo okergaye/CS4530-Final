@@ -12,6 +12,7 @@
 		E2153F22207C449400EB2E12 /* Final.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2153F20207C449400EB2E12 /* Final.xcdatamodeld */; };
 		E2153F24207C449400EB2E12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2153F23207C449400EB2E12 /* Assets.xcassets */; };
 		E215D2AF20925FEA00DEB65B /* ship.png in Resources */ = {isa = PBXBuildFile; fileRef = E215D2AE20925FEA00DEB65B /* ship.png */; };
+		E215D2B1209279B900DEB65B /* dpad.png in Resources */ = {isa = PBXBuildFile; fileRef = E215D2B0209279B800DEB65B /* dpad.png */; };
 		E216C3BC207FB69D005189F4 /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216C3BB207FB69D005189F4 /* HighScoreView.swift */; };
 		E216C3BE207FB71F005189F4 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216C3BD207FB71F005189F4 /* MainMenuView.swift */; };
 		E216C3C0207FB8DA005189F4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E216C3BF207FB8DA005189F4 /* Default-568h@2x.png */; };
@@ -33,6 +34,7 @@
 		E2153F23207C449400EB2E12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2153F28207C449400EB2E12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E215D2AE20925FEA00DEB65B /* ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship.png; sourceTree = "<group>"; };
+		E215D2B0209279B800DEB65B /* dpad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dpad.png; sourceTree = "<group>"; };
 		E216C3BB207FB69D005189F4 /* HighScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreView.swift; sourceTree = "<group>"; };
 		E216C3BD207FB71F005189F4 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		E216C3BF207FB8DA005189F4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				E2153F20207C449400EB2E12 /* Final.xcdatamodeld */,
 				E2153F28207C449400EB2E12 /* Info.plist */,
 				E2DE3587208D264D007180B3 /* jup.png */,
+				E215D2B0209279B800DEB65B /* dpad.png */,
 				E215D2AE20925FEA00DEB65B /* ship.png */,
 				E2DE3586208D264D007180B3 /* splash.jpg */,
 				E22CE8DA2083F5DA000D85C4 /* questions.txt */,
@@ -160,6 +163,7 @@
 				E2153F24207C449400EB2E12 /* Assets.xcassets in Resources */,
 				E22CE8DB2083F5DA000D85C4 /* questions.txt in Resources */,
 				E2DE3589208D264E007180B3 /* jup.png in Resources */,
+				E215D2B1209279B900DEB65B /* dpad.png in Resources */,
 				E216C3C0207FB8DA005189F4 /* Default-568h@2x.png in Resources */,
 				E2DE3588208D264E007180B3 /* splash.jpg in Resources */,
 				E215D2AF20925FEA00DEB65B /* ship.png in Resources */,
