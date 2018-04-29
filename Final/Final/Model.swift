@@ -8,7 +8,10 @@
 
 import Foundation
 
-
+struct M{
+    static let A: Float =  (9.0 / 16.0)
+    
+}
 class GAMESTATE: Codable{
     
     //vars

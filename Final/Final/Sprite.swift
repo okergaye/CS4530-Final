@@ -19,15 +19,18 @@ class Sprite{
     var position: Vector = Vector()
     var posX: Float = 0.0
     var posY: Float = 0.0
+    
     var x: Float = 0.0
     var y: Float = 0.0
-    var offsetX: Float = 1.0
-    var offsetY: Float = 1.0
-    var texture: GLuint = 0
-    
-    //var image: UI
     var width: Float = 1.0
     var height: Float = 1.0
+    
+    var offsetX: Float = 0.0
+    var offsetY: Float = 0.0
+    var texture: GLuint = 0
+    var cutX: Float = 1.0
+    var cutY: Float = 1.0
+    
     // var rotation: Float = 0.0
     // var animation: something//array of tiles that are a set of locations in a file, with time attached to them, game updateloop will provide next tile
     
@@ -36,32 +39,12 @@ class Sprite{
         if(Sprite.program == 0){
             Sprite.setup()
         }
-        //TODO how to perfomailty draw 400 things
-        
-        //glUniform2f(glGetUniformLocation(program, "translate"), animationX, animationY)
-        
-        ////this is for all the non moving stuff.
-        //        glUniform2f(glGetUniformLocation(program, "scale"), 0, 0)
-        //        glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
         glUniform2f(glGetUniformLocation(Sprite.program, "scale"), width, height)
         glUniform2f(glGetUniformLocation(Sprite.program, "translate"), x, y)
+        glUniform2f(glGetUniformLocation(Sprite.program, "cut"), cutX, cutY)
         glUniform2f(glGetUniformLocation(Sprite.program, "offset"), offsetX, offsetY)
-      //  glUniform2f(glGetUniformLocation(Sprite.program, "position"), posX, posY)
         glBindTexture(GLenum(GL_TEXTURE_2D), GLuint(texture) )
         glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)//darw array of memory,  spesificly attirbue data
-        
-//        glUniform2f(glGetUniformLocation(Sprite.program, "scale"), 1, 0.5)
-//        glUniform2f(glGetUniformLocation(Sprite.program, "translate"), 0, 0)
-//        glBindTexture(GLenum(GL_TEXTURE_2D), Sprite.dpad.name)
-//        glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)//darw array of memory,  spesificly attirbue data
-//
-//        //
-//        //
-//        glUniform2f(glGetUniformLocation(Sprite.program, "scale"), 1, 1)
-//        glUniform2f(glGetUniformLocation(Sprite.program, "translate"), x, y)
-//        glBindTexture(GLenum(GL_TEXTURE_2D), Sprite.ship.name)
-//        glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)//darw array of memory,  spesificly attirbue data
-        
     }
     
     
@@ -86,12 +69,6 @@ class Sprite{
         0.5,-0.5,
         -0.5, 0.5,
         0.5, 0.5,
-        
-//        //i think i need this for the ship
-//        -0.5,-0.5,
-//        0.5,-0.5,
-//        -0.5, 0.5,
-//        0.5, 0.5,
         ]
     //textires are 0-1 referanced from the top left cornor
     static private let triangleTextureCoordinateData: [Float] = [
@@ -99,13 +76,6 @@ class Sprite{
         1.0 , 1.0,
         0.0 , 0.0,
         1.0 , 0.0,
-//        //ship facing up, top right
-//        0.0 , 1.0,
-//        0.25 , 1.0,
-//        //ship facing up, bottom left half
-//        0.0 , 0.0,
-//        0.25 , 0.0,
-        
     ]
     static private var program: GLuint = 0
  
@@ -121,13 +91,14 @@ class Sprite{
             uniform vec2 scale;
 
             uniform vec2 offset;
+            uniform vec2 cut;
             attribute vec2 textureCoordinate;
             varying vec2 textureCoordinateInterpolated;
 
             void main(){
-            gl_Position = vec4(position.x * scale.x + translate.x , position.y * scale.y + translate.y, 0.0, 1.0);
+            gl_Position = vec4(position.x * scale.x + translate.x , position.y * (9.0 / 16.0) * scale.y  + translate.y, 0.0, 1.0);
 
-                textureCoordinateInterpolated = vec2(textureCoordinate.x * offset.x , textureCoordinate.y * offset.y);
+                textureCoordinateInterpolated = vec2(textureCoordinate.x * cut.x + offset.x, textureCoordinate.y * cut.y + offset.y);
 
             }
         """

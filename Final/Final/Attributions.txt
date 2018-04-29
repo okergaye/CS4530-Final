@@ -1,6 +1,13 @@
 Splash Screen: https://pngtree.com/freebackground/moon-star-app-mobile-terminal-h5-background_655513.html
-idk yet: https://solarsystem.nasa.gov/system/stellar_items/image_files/9_juno-jupitersp.png
+
+Jupitor: https://solarsystem.nasa.gov/system/stellar_items/image_files/9_juno-jupitersp.png
 
 ship: http://www.moddb.com/games/space-lions-squadron/images/base-space-ship-spritesheet
 
 dpad: https://forums.rpgmakerweb.com/index.php?threads/d-pad-action-button-plugin-request.48213/
+
+A button: http://www.kiwijs.org/documentation/tutorials/using-the-touchbutton-plugin/
+
+BulletSheet: myself
+
+
