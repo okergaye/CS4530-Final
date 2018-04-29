@@ -47,7 +47,9 @@ class GameViewController: GLKViewController {
     func loadSpriteTextures(){
         jupTextureInfo =  try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "jup.png").cgImage!, options: [:])
         backgroundTextureInfo = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "splash.jpg").cgImage!, options: [:])
-        ship = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "ship.png").cgImage!, options: [:])
+     //   ship = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "ship.png").cgImage!, options: [:])
+        ship = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "shipTwo.png").cgImage!, options: [:])
+
         dpad = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "dpad.png").cgImage!, options: [:])
         buttonTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "button.png").cgImage!, options: [:])
         bulletTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "bulletSheet.png").cgImage!, options: [:])
@@ -81,11 +83,16 @@ class GameViewController: GLKViewController {
         shipSprite.width = 0.25
         shipSprite.height = 0.25
         //1024 by 1024 are best for textures with frames. perfect squares for animat stiff
-        shipSprite.cutX = 0.25
+      //  shipSprite.cutX = 0.25
+        shipSprite.cutX = 0.333
+        shipSprite.cutY = 0.12
+
         
         bulletSprite.texture = bulletTex.name
-        bulletSprite.width = 0.125
-        bulletSprite.height = 0.125
+        bulletSprite.width = 0.15
+        bulletSprite.height = 0.15
+        bulletSprite.x = 1.1
+        bulletSprite.y = 1.1
 
 
         
@@ -96,13 +103,18 @@ class GameViewController: GLKViewController {
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         update()
+        
         //////////////start point for the new shit
+        
+        
         
         sprite.draw()
         dpadSprite.draw()
         buttonSprite.draw()
         shipSprite.draw()
         bulletSprite.draw()
+        
+        
 
         //this is in pixels, for teh vars
 //        glViewport(0, 0, GLsizei(view.bounds.width * view.contentScaleFactor), GLsizei(view.bounds.height * view.contentScaleFactor))
@@ -115,27 +127,23 @@ class GameViewController: GLKViewController {
         let now = Date()
         let elapsed = now.timeIntervalSince(lastUpdate)
         lastUpdate = now
-        animation += Float(elapsed) * 0.25
-        //shipSprite.offsetY += animation
+        animation += Float(elapsed) * 1.5
+        let bulletSpeed: Float = 0.04
         
-        let ani: Float = 0.125 * cos(animation) * 0.5
+        //shipSprite.offsetY += animation
+        var ani: Float = 0
+        if(cos(animation) > 0){
+        //idk how these numbers affect the animation, but its working..
+            ani = 0.15 * (cos(animation) * 0.5 + 0.5)
+
+        }else{
+            ani = 0.15 * (-cos(animation) * 0.5 + 0.5)
+
+        }
         bulletSprite.height = ani
         bulletSprite.width  = ani
-//        if(jiggle >= 0.125){
-//
-//            bulletSprite.height += jiggle
-//            bulletSprite.width += jiggle
-//            jiggle += 0.005
-//
-//
-//        }else if (jiggle <= 0.150){
-//            bulletSprite.height += jiggle
-//            bulletSprite.width += jiggle
-//            jiggle += 0.005
-//
-//
-//        }
-        
+
+        bulletSprite.y += bulletSpeed
 
         // shipSprite.x = Float(cos(animation)) * 0.9  //ithink this is the probl
         // shipSprite.y = Float(sin(animation)) * 0.9
@@ -147,12 +155,13 @@ class GameViewController: GLKViewController {
         }
         
         //TODO: call gameloop method in here GameModel.executeGameLoop(elapsed)
+     //   Model.GameLoop(elapsed: elapsed)
     }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        buttonSprite.offsetX = 0
+
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -167,6 +176,10 @@ class GameViewController: GLKViewController {
         let berryButY = view.center.y + (0.85 * view.bounds.height / 2 )
         
         if(location.x > berryButX - offsetY && location.x < berryButX + offsetY && location.y > berryButY - offsetY && location.y < berryButY + offsetY){
+            bulletSprite.x = shipSprite.x
+            bulletSprite.y = shipSprite.y + 0.1
+            
+            buttonSprite.offsetX = 0.1428
             
         }
         
@@ -175,22 +188,30 @@ class GameViewController: GLKViewController {
         //up clicked
         if(location.y < berryBoundsY && location.y > berryBoundsY - offsetY && location.x > berryBoundsX - offsetX && location.x < berryBoundsX + offsetX){
             shipSprite.y += 0.1 * M.A
-            shipSprite.offsetX = 0.0
+            shipSprite.offsetX = 0.33
+            shipSprite.offsetY = 0.12
+
         }
         //down clicked
         else if(location.y < berryBoundsY + offsetY && location.y > berryBoundsY && location.x > berryBoundsX - offsetX && location.x < berryBoundsX + offsetX){
             shipSprite.y -= 0.1 * M.A
-            shipSprite.offsetX = 0.50
+            shipSprite.offsetX = 0.33
+            shipSprite.offsetY = 0.0
+
         }
         //left click
         else if(location.y < berryBoundsY + offsetX && location.y > berryBoundsY - offsetX && location.x < berryBoundsX && location.x > berryBoundsX - offsetY){
             shipSprite.x -= 0.1
-            shipSprite.offsetX = 0.25
+            shipSprite.offsetY = 0.12
+
+            shipSprite.offsetX = 0
         }
         //right clicked
         else if(location.y < berryBoundsY + offsetX && location.y > berryBoundsY - offsetX && location.x < berryBoundsX + offsetY && location.x > berryBoundsX){
             shipSprite.x += 0.1
-            shipSprite.offsetX = 0.75
+            shipSprite.offsetY = 0.12
+
+            shipSprite.offsetX = 0.66
         }
         ////Dpad over!
         

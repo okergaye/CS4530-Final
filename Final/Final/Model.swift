@@ -26,15 +26,22 @@ class GAMESTATE: Codable{
         showWelcome = false
         level = 0
     }
-    
 
+}
+
+//model object
+class Movable: Sprite{
+    //var velocity: Float
+    //or have a path
+    var startTime: Double = 0.0
+    var endTime: Double = 0.0
+    var path: [Vector] = []
     
 }
 
-
 class Model {
     
-    func GameLoop(){
+    func GameLoop(elapsed: Date){
         
         
     }

@@ -16,9 +16,9 @@ import GLKit
 
 class Sprite{
     
-    var position: Vector = Vector()
-    var posX: Float = 0.0
-    var posY: Float = 0.0
+//    var position: Vector = Vector()
+//    var posX: Float = 0.0
+//    var posY: Float = 0.0
     
     var x: Float = 0.0
     var y: Float = 0.0
@@ -161,12 +161,4 @@ class Sprite{
     
 }
 
-//model object
-class Movable: Sprite{
-    //var velocity: Float
-    //or have a path
-    var startTime: Double = 0.0
-    var endTime: Double = 0.0
-    var path: [Vector] = []
-    
-}
+
