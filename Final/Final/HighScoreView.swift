@@ -12,38 +12,28 @@ import UIKit
 
 
 class HighScoreView: UIView {
-    
     weak var menuDel: menuDelgate?
-    
     var Title: UILabel!
     var Board: UIStackView!
     var BackButton: UIButton!
-    
     var One, Two, Three, Four, Five: UILabel!
-
     let backColor = UIColor.black.withAlphaComponent(0.4)
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    
         layer.contents = #imageLiteral(resourceName: "splash.jpg").cgImage
-
-       // translatesAutoresizingMaskIntoConstraints = false
-        
+        // translatesAutoresizingMaskIntoConstraints = false
         Title = UILabel()
         Title.textAlignment = .center
         Title.baselineAdjustment = .alignCenters
         Title.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         Title.textColor = .white
         
-        
         Board = UIStackView()
         Board.backgroundColor = UIColor.white
         Board.alignment = .fill
         Board.axis = .vertical
         Board.distribution = .fillEqually
-        
         
         BackButton = UIButton()
         BackButton.backgroundColor = backColor
@@ -52,56 +42,47 @@ class HighScoreView: UIView {
         
         setupBoardContents()
         
-
         Board.addArrangedSubview(One)
         Board.addArrangedSubview(Two)
         Board.addArrangedSubview(Three)
         Board.addArrangedSubview(Four)
         Board.addArrangedSubview(Five)
         Board.addArrangedSubview(BackButton)
-       
+        
         addSubview(Title)
         addSubview(Board)
     }
     
     func setupBoardContents(){
-   //     let howdoISHITNKTHIS = 0
         One = UILabel()
         One.backgroundColor = backColor
         One.textAlignment = .center
         One.baselineAdjustment = .alignCenters
         One.textColor = .white
-
         
         Two = UILabel()
         Two.backgroundColor = backColor
         Two.textAlignment = .center
         Two.baselineAdjustment = .alignCenters
         Two.textColor = .white
-
         
         Three = UILabel()
         Three.backgroundColor = backColor
         Three.textAlignment = .center
         Three.baselineAdjustment = .alignCenters
         Three.textColor = .white
-
         
         Four = UILabel()
         Four.backgroundColor = backColor
         Four.textAlignment = .center
         Four.baselineAdjustment = .alignCenters
         Four.textColor = .white
-
         
         Five = UILabel()
         Five.backgroundColor = backColor
         Five.textAlignment = .center
         Five.baselineAdjustment = .alignCenters
         Five.textColor = .white
-
-        
-        
     }
     
     //helps format my timeinteval
@@ -112,7 +93,7 @@ class HighScoreView: UIView {
         let hours = (inter / 3600)
         return NSString(format: "%0.2d:%0.2d:%0.2d%",hours,minutes,seconds)
     }
-
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -130,10 +111,8 @@ class HighScoreView: UIView {
         if(M.gameOverStatic){
             One.text = "1. You! \(today) "
             M.gameOverStatic = false
-
         }else{
             One.text = "1. Billy 1"
-
         }
         
         Two.font = fontConst
@@ -145,35 +124,16 @@ class HighScoreView: UIView {
         Five.font = fontConst
         Five.text = "5. Dave! 0"
         
-        
-       
-
         Board.frame = CGRect(x: 0, y: 0 + (frame.height * 1/10), width: frame.width , height: frame.height - (frame.height * 1/10)).insetBy(dx: 0, dy: frame.height * 1/10)
         Title.frame = CGRect(x: 0, y: 0, width: frame.width , height: frame.height * 1/10)
     }
     
     
-   
+    
     @objc func BackButtonPress(sender: UIButton){
         menuDel?.popHSView()
         debugPrint("BackButtonPRess in hsview")
-
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // staticish stuff beloew this point.
     required init?(coder aDecoder: NSCoder) {

@@ -13,27 +13,21 @@ import GLKit
 // 9:16 retio needs to be appled to x and y to make actual squres
 //x -> -1-1
 // y goes from -1.777 - 1.777, both for elements on screen
-
+//Sprite class with opengl es for drawing
 class Sprite{
     
-//    var position: Vector = Vector()
-//    var posX: Float = 0.0
-//    var posY: Float = 0.0
-    
+    //vars
     var x: Float = 0.0
     var y: Float = 0.0
     var width: Float = 1.0
     var height: Float = 1.0
-    
     var offsetX: Float = 0.0
     var offsetY: Float = 0.0
     var texture: GLuint = 0
     var cutX: Float = 1.0
     var cutY: Float = 1.0
     
-    // var rotation: Float = 0.0
-    // var animation: something//array of tiles that are a set of locations in a file, with time attached to them, game updateloop will provide next tile
-    
+    // var rotation: Float = 0.0 optional
     
     func draw(){
         if(Sprite.program == 0){
@@ -47,23 +41,7 @@ class Sprite{
         glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)//darw array of memory,  spesificly attirbue data
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /////STATIC BELOEW//////
-    
     static private let quad: [Float] = [
         -0.5,-0.5,
         0.5,-0.5,
@@ -76,10 +54,8 @@ class Sprite{
         1.0 , 1.0,
         0.0 , 0.0,
         1.0 , 0.0,
-    ]
+        ]
     static private var program: GLuint = 0
- 
-    
     private static func setup(){
         // define and compile a vertex shader
         let vertexShaderSource: NSString = """
@@ -152,13 +128,11 @@ class Sprite{
         glUniform1i(glGetUniformLocation(program, "textureUnit"), 0)
         
         ///if i want to swap textuers, i need this to be a member var, then call bindtexture in glkview
- 
+        
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
         
     }
-    
-    
 }
 
 

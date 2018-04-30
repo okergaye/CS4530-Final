@@ -24,7 +24,6 @@
 		E227771E2096B65600F29405 /* health.png in Resources */ = {isa = PBXBuildFile; fileRef = E227771D2096B65500F29405 /* health.png */; };
 		E228CB982095369000940E8D /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = E228CB972095368F00940E8D /* button.png */; };
 		E228CB9A20953B2B00940E8D /* bulletSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = E228CB9920953B2B00940E8D /* bulletSheet.png */; };
-		E229278D208E7B6F00E99E77 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E229278C208E7B6F00E99E77 /* Vector.swift */; };
 		E22CE8D92083EC71000D85C4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22CE8D82083EC71000D85C4 /* GameViewController.swift */; };
 		E22CE8DB2083F5DA000D85C4 /* questions.txt in Resources */ = {isa = PBXBuildFile; fileRef = E22CE8DA2083F5DA000D85C4 /* questions.txt */; };
 		E26115C42082B615000D7FF2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26115C32082B615000D7FF2 /* Model.swift */; };
@@ -54,7 +53,6 @@
 		E227771D2096B65500F29405 /* health.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = health.png; sourceTree = "<group>"; };
 		E228CB972095368F00940E8D /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		E228CB9920953B2B00940E8D /* bulletSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bulletSheet.png; sourceTree = "<group>"; };
-		E229278C208E7B6F00E99E77 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		E22CE8D82083EC71000D85C4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E22CE8DA2083F5DA000D85C4 /* questions.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = questions.txt; sourceTree = "<group>"; };
 		E26115C32082B615000D7FF2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 				E26115C32082B615000D7FF2 /* Model.swift */,
 				E22CE8D82083EC71000D85C4 /* GameViewController.swift */,
 				E2DE358A208D4155007180B3 /* Sprite.swift */,
-				E229278C208E7B6F00E99E77 /* Vector.swift */,
 			);
 			path = Final;
 			sourceTree = "<group>";
@@ -224,7 +221,6 @@
 				E216C3BC207FB69D005189F4 /* HighScoreView.swift in Sources */,
 				E2153F1A207C449400EB2E12 /* AppDelegate.swift in Sources */,
 				E2DE358B208D4155007180B3 /* Sprite.swift in Sources */,
-				E229278D208E7B6F00E99E77 /* Vector.swift in Sources */,
 				E22CE8D92083EC71000D85C4 /* GameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,27 +9,18 @@
 import Foundation
 import UIKit
 
-
-
-
 class MainMenuView: UIView {
     
     weak var menuDel: menuDelgate?
-
     var StartGameButton: UIButton!
     var Title: UILabel!
     var HighScoreButton: UIButton!
     var Welcome: UILabel!
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        //this one zooms in
-        //backgroundColor = UIColor(patternImage: UIImage(named: "splash.jpg")!)
-        
         //this one looks better but has to be wirtin in a comment first
         layer.contents = #imageLiteral(resourceName: "splash.jpg").cgImage
-    
         let buttonColor = UIColor.black.withAlphaComponent(0.4)
         
         StartGameButton = UIButton()
@@ -58,21 +49,17 @@ class MainMenuView: UIView {
         addSubview(Title)
         addSubview(StartGameButton)
         addSubview(Welcome)
-
-        
     }
     
-  
-
     override func layoutSubviews() {
         super.layoutSubviews()
         let fontConst = UIFont.systemFont(ofSize: frame.width  * 0.09)
-
+        
         StartGameButton.titleLabel?.font = fontConst
         Title.font = fontConst
         Welcome.font = fontConst
         HighScoreButton.titleLabel?.font = fontConst
-
+        
         StartGameButton.setTitle("Start Game", for: .normal)
         Welcome.text = "WELCOME!!"
         Title.text = "Flay-O-Final"
@@ -90,45 +77,24 @@ class MainMenuView: UIView {
         debugPrint("starGameFunc in MainMenuView")
         menuDel?.animateButton(sender: sender)
         menuDel?.startGameView()
-        
     }
     
-    
+    //button for HS press events
     @objc func highScoreButtonPress(sender: UIButton){
         menuDel?.animateButton(sender: sender)
         debugPrint("highscorebuttonpreessss in MainMenuView")
-        
         menuDel?.pushHighScoreView()
-        
     }
     
+    //hideLabel function
     @objc func hideLabel() {
         Welcome.isHidden = true
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // staticish stuff beloew this point.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         print("dumapple")
     }
-    
-  
-    
 }
 
