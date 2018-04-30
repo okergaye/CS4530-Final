@@ -65,7 +65,7 @@ class HighScoreView: UIView {
     }
     
     func setupBoardContents(){
-        let howdoISHITNKTHIS = 0
+   //     let howdoISHITNKTHIS = 0
         One = UILabel()
         One.backgroundColor = backColor
         One.textAlignment = .center
@@ -104,13 +104,21 @@ class HighScoreView: UIView {
         
     }
     
-    
+    //helps format my timeinteval
+    func TimeIntervalToString(interval: TimeInterval) -> NSString {
+        let inter = NSInteger(interval)
+        let seconds = inter % 60
+        let minutes = (inter / 60) % 60
+        let hours = (inter / 3600)
+        return NSString(format: "%0.2d:%0.2d:%0.2d%",hours,minutes,seconds)
+    }
 
     
     override func layoutSubviews() {
         super.layoutSubviews()
         let fontConst = UIFont.systemFont(ofSize: frame.width  * 0.09)
-
+        let now = Date()
+        let today = TimeIntervalToString(interval: now.timeIntervalSince1970)
         Title.font = fontConst
         Title.text = "Top Players!"
         
@@ -118,15 +126,24 @@ class HighScoreView: UIView {
         BackButton.setTitle("Back", for: .normal)
         
         One.font = fontConst
-        One.text = "1. Billy"
+        
+        if(M.gameOverStatic){
+            One.text = "1. You! \(today) "
+            M.gameOverStatic = false
+
+        }else{
+            One.text = "1. Billy 1"
+
+        }
+        
         Two.font = fontConst
-        Two.text = "2. Bob"
+        Two.text = "2. Bob 1"
         Three.font = fontConst
-        Three.text = "3. Jones"
+        Three.text = "3. Jones 0"
         Four.font = fontConst
-        Four.text = "4. PlaceHolder"
+        Four.text = "4. Stoker 0"
         Five.font = fontConst
-        Five.text = "5. ddddddd"
+        Five.text = "5. Dave! 0"
         
         
        

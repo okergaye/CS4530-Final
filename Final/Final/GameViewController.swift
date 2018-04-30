@@ -22,11 +22,15 @@ class GameViewController: GLKViewController {
     private var bulletSprite = Sprite()
     private var enemySprite = Sprite()
     private var boomSprite = Sprite()
+    private var gameOverSprite = Sprite()
+    private var gameScoreSprite = Sprite()
+    private var healthSprite = Sprite()
+
 
     
     private var animation:Float = 0.0
     private var lastUpdate: Date = Date()
-    private var model: Model = Model()
+    public var model: Model = Model()
     
     public var jupTextureInfo: GLKTextureInfo =  GLKTextureInfo()
     public var backgroundTextureInfo: GLKTextureInfo = GLKTextureInfo()
@@ -35,6 +39,12 @@ class GameViewController: GLKViewController {
     public var buttonTex: GLKTextureInfo = GLKTextureInfo()
     public var bulletTex: GLKTextureInfo = GLKTextureInfo()
     public var boomTex: GLKTextureInfo = GLKTextureInfo()
+    public var gameOverTex: GLKTextureInfo = GLKTextureInfo()
+    public var gameScoreTex: GLKTextureInfo = GLKTextureInfo()
+    public var healthTex: GLKTextureInfo = GLKTextureInfo()
+
+    
+
 
 
     
@@ -59,6 +69,9 @@ class GameViewController: GLKViewController {
         buttonTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "button.png").cgImage!, options: [:])
         bulletTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "bulletSheet.png").cgImage!, options: [:])
         boomTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "boom.png").cgImage!, options: [:])
+        gameOverTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "gameOver.png").cgImage!, options: [:])
+        gameScoreTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "numbers.png").cgImage!, options: [:])
+        healthTex = try! GLKTextureLoader.texture(with: #imageLiteral(resourceName: "health.png").cgImage!, options: [:])
 
 
     }
@@ -115,6 +128,26 @@ class GameViewController: GLKViewController {
         boomSprite.height = 0.35
         boomSprite.offsetX = 0.0
         boomSprite.offsetY = 0.0
+        
+        gameOverSprite.texture = gameOverTex.name
+        gameOverSprite.width = 1.5
+        gameOverSprite.height = 1.5
+     
+        gameScoreSprite.texture = gameScoreTex.name
+        gameScoreSprite.cutY = 0.33
+        gameScoreSprite.cutX = 0.10
+        gameScoreSprite.x = -0.88
+        gameScoreSprite.y = +0.91
+        gameScoreSprite.height = 0.25
+        gameScoreSprite.width = 0.25
+
+        healthSprite.texture = healthTex.name
+        healthSprite.x = +0.84
+        healthSprite.y = +0.91
+        healthSprite.height = 0.25
+        healthSprite.width = 0.25
+
+        
   
     }
     
@@ -130,7 +163,17 @@ class GameViewController: GLKViewController {
         bulletSprite.draw()
         enemySprite.draw()
         boomSprite.draw()
-        
+        gameScoreSprite.draw()
+        healthSprite.draw()
+
+        if(model.gameOverFlag){
+            healthSprite.texture = 0
+            
+            gameOverSprite.draw()
+            M.gameOverStatic = true
+        }else if(model.gameWinFlag){
+            
+        }
         
 
         //this is in pixels, for teh vars
@@ -139,6 +182,63 @@ class GameViewController: GLKViewController {
         
     }
 
+    
+
+
+    func update(){
+        //setup
+        let now = Date()
+        let elapsed = now.timeIntervalSince(lastUpdate)
+        lastUpdate = now
+        animation += Float(elapsed) * 3.5
+        
+        
+        
+        
+        //bullet speed
+        bulletAnimation()
+        
+        if(model.level == 2){
+            level.texture = jupTextureInfo.name
+            level.cutX = 0.5
+            level.cutY = 0.5
+            
+            
+        }else if(model.level == 3){
+            level.offsetX = 0.25
+            level.offsetY = 0.25
+        }
+        
+        shipSprite.x = model.shipSpriteX
+        shipSprite.y = model.shipSpriteY
+        
+        bulletSprite.y = model.bulletSpriteY
+        bulletSprite.x = model.bulletSpriteX
+        
+        enemySprite.x = model.enemySpriteX
+        enemySprite.y = model.enemySpriteY
+        
+        enemySprite.width = model.enemySpriteWidth
+        enemySprite.height = model.enemySpriteHeight
+        
+        boomSprite.x = model.boomX
+        boomSprite.y = model.boomY
+        
+
+
+        gameScoreSprite.offsetX = model.gameScoreOffsetX
+        
+        
+
+        //TODO: call gameloop method in here GameModel.executeGameLoop(elapsed)
+       // Model.GameLoop(elapsed)
+        model.GameLoop(timePast: elapsed)
+    }
+
+    
+    
+    
+    
     fileprivate func bulletAnimation() {
         //shipSprite.offsetY += animation
         var ani: Float = 0
@@ -156,7 +256,7 @@ class GameViewController: GLKViewController {
         enemySprite.height = ani + 0.4
         enemySprite.width  = ani + 0.4
         
-        var frame = Int(animation) % 4
+        let frame = Int(animation) % 4
         switch frame {
         case 0:
             boomSprite.offsetX = 0.0
@@ -171,63 +271,54 @@ class GameViewController: GLKViewController {
         }
     }
     
-
-
-    func update(){
-        //setup
-        let now = Date()
-        let elapsed = now.timeIntervalSince(lastUpdate)
-        lastUpdate = now
-        animation += Float(elapsed) * 3.5
-        
-        //bullet speed
-        bulletAnimation()
-        
-        shipSprite.x = model.shipSpriteX
-        shipSprite.y = model.shipSpriteY
-        
-        bulletSprite.y = model.bulletSpriteY
-        bulletSprite.x = model.bulletSpriteX
-        
-        enemySprite.x = model.enemySpriteX
-        enemySprite.y = model.enemySpriteY
-        
-        boomSprite.x = model.boomX
-        boomSprite.y = model.boomY
-
-        
-        
-        
-
-        //TODO: call gameloop method in here GameModel.executeGameLoop(elapsed)
-       // Model.GameLoop(elapsed)
-        model.GameLoop(timePast: elapsed)
-    }
-
-    
-    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         buttonSprite.offsetX = 0
+        dpadSprite.offsetX = 0
+        dpadSprite.offsetY = 0
+
+        guard let touch = touches.first else {return}
+        let location = touch.location(in: self.view)
+        let berryBoundsX = view.center.x + (0.72 * view.bounds.width / 2)
+        let berryBoundsY = view.center.y + (0.85 * view.bounds.height / 2 )
+        let offsetX = view.center.x / 12
+        let offsetY = view.center.y / 8
+        
+        ////DPAD STUFF
+        //up clicked
+        if(location.y < berryBoundsY && location.y > berryBoundsY - offsetY && location.x > berryBoundsX - offsetX && location.x < berryBoundsX + offsetX){
+            model.upRel()
+            
+            shipSprite.offsetX = 0.33
+            shipSprite.offsetY = 0.12
+            
+        }
+            //down clicked
+        else if(location.y < berryBoundsY + offsetY && location.y > berryBoundsY && location.x > berryBoundsX - offsetX && location.x < berryBoundsX + offsetX){
+            model.downRel()
+            shipSprite.offsetX = 0.33
+            shipSprite.offsetY = 0.0
+            
+        }
+            //left click
+        else if(location.y < berryBoundsY + offsetX && location.y > berryBoundsY - offsetX && location.x < berryBoundsX && location.x > berryBoundsX - offsetY){
+            model.leftRel()
+            shipSprite.offsetY = 0.12
+            
+            shipSprite.offsetX = 0
+        }
+            //right clicked
+        else if(location.y < berryBoundsY + offsetX && location.y > berryBoundsY - offsetX && location.x < berryBoundsX + offsetY && location.x > berryBoundsX){
+            model.rightRel()
+            
+            shipSprite.offsetY = 0.12
+            shipSprite.offsetX = 0.66
+        }
+        ////Dpad over!
 
     }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        guard let touch = touches.first else {return}
-//        let location = touch.location(in: self.view)
-//        let berryBoundsX = view.center.x + (0.72 * view.bounds.width / 2)
-//        let berryBoundsY = view.center.y + (0.85 * view.bounds.height / 2 )
-//        let offsetX = view.center.x / 12
-//        let offsetY = view.center.y / 8
-//        if(location.y < berryBoundsY && location.y > berryBoundsY - offsetY && location.x > berryBoundsX - offsetX && location.x < berryBoundsX + offsetX){
-//            model.upTap()
-//
-//            shipSprite.offsetX = 0.33
-//            shipSprite.offsetY = 0.12
-//
-//        }
-        
-    }
+ 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let touch = touches.first else {return}
@@ -236,19 +327,19 @@ class GameViewController: GLKViewController {
         let berryBoundsY = view.center.y + (0.85 * view.bounds.height / 2 )
         let offsetX = view.center.x / 12
         let offsetY = view.center.y / 8
-        
         let berryButX = view.center.x - (0.72 * view.bounds.width / 2)
         let berryButY = view.center.y + (0.85 * view.bounds.height / 2 )
         
         if(location.x > berryButX - offsetY && location.x < berryButX + offsetY && location.y > berryButY - offsetY && location.y < berryButY + offsetY){
             model.fireTap()
-            
-            
             buttonSprite.offsetX = 0.1428
-            
         }
-        
-        
+        if(self.model.gameOverFlag){
+            if(location.x > view.center.x - 70 && location.x < view.center.x + 70 && location.y > view.center.y - 70 && location.y < view.center.y + 120){
+                navigationController?.popViewController(animated: true)
+                
+            }
+        }
         ////DPAD STUFF
         //up clicked
         if(location.y < berryBoundsY && location.y > berryBoundsY - offsetY && location.x > berryBoundsX - offsetX && location.x < berryBoundsX + offsetX){
@@ -256,6 +347,9 @@ class GameViewController: GLKViewController {
             
             shipSprite.offsetX = 0.33
             shipSprite.offsetY = 0.12
+            
+            dpadSprite.offsetY = 0.01
+
 
         }
         //down clicked
@@ -263,6 +357,9 @@ class GameViewController: GLKViewController {
             model.downTap()
             shipSprite.offsetX = 0.33
             shipSprite.offsetY = 0.0
+            
+            dpadSprite.offsetY = -0.01
+
 
         }
         //left click
@@ -271,6 +368,8 @@ class GameViewController: GLKViewController {
             shipSprite.offsetY = 0.12
 
             shipSprite.offsetX = 0
+            dpadSprite.offsetX = -0.01
+
         }
         //right clicked
         else if(location.y < berryBoundsY + offsetX && location.y > berryBoundsY - offsetX && location.x < berryBoundsX + offsetY && location.x > berryBoundsX){
@@ -278,6 +377,9 @@ class GameViewController: GLKViewController {
             
             shipSprite.offsetY = 0.12
             shipSprite.offsetX = 0.66
+            
+            dpadSprite.offsetX = 0.01
+
         }
         ////Dpad over!
         

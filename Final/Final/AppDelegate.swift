@@ -21,35 +21,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
        // UIButton.appearance().tintColor = .white
-        
+
         
         mainMenu = MainMenu()
         mainMenu.welcomeState = false
-        //window?.rootViewController = UINavigationController(rootViewController: mainMenu)
-        window?.rootViewController = GameViewController()
+        window?.rootViewController = UINavigationController(rootViewController: mainMenu)
 
         mainMenu.navigationController?.isNavigationBarHidden = true
         window?.makeKeyAndVisible()
-        
+        restoreAlarmData()
+
         
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-      //  mainMenu.welcomeState = false
-
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+//        //save start
+//        let json = M.saveToJson()
+//        let directoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+//        let filePath = directoryPath + "thissucksbutIAMLEARNING.txt"
+//        let myFilePath: URL = URL(fileURLWithPath: filePath)
+//        do{
+//            try json.write(to: myFilePath)
+//        }
+//        catch {
+//            //meh
+//        }
     }
 
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         mainMenu.welcomeState = false
         mainMenu.viewDidAppear(false)
+        restoreAlarmData()
+
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
-    
+    //load func for restoring alarm data
+    func restoreAlarmData(){
+        
+        //do file pathing stuff
+        let filePath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let path: String = filePath + "thissucksbutIAMLEARNING.txt"
+        let url: URL = URL(fileURLWithPath: path)
+        
+        //now try and restore
+        var data: Data
+        do{
+            data = try Data(contentsOf: url)
+        }catch{
+            data = Data()
+        }
+        
+        //turn it back into my struct file, get it out of the stored json
+//        M.loadJson(from: data)
+        
+    }
     
  
     

@@ -43,6 +43,12 @@ class MainMenu: UIViewController, menuDelgate {
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if(M.gameOverStatic){
+            pushHighScoreView()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         menu.Welcome.isHidden = welcomeState
         navigationController?.isNavigationBarHidden = true
@@ -78,6 +84,8 @@ class MainMenu: UIViewController, menuDelgate {
     
     func startGameView() {
         debugPrint("menuDel here")
+        gameViewController.model.NewGame()
+        
         navigationController?.pushViewController(gameViewController, animated: true)
     }
     

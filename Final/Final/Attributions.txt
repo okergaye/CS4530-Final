@@ -16,4 +16,6 @@ numbers: https://gadgets-23.pw.utc.com/ehs/material/contractorehs/contractor/ste
 
 gameOver: http://web1.crypt.gloucs.sch.uk/ict/Resources/Year%208/Game%20City%20International/Lesson03/Part%202/Games/Sprites/frogger/
 
+win: http://web1.crypt.gloucs.sch.uk/ict/Resources/Year%208/Game%20City%20International/Lesson03/Part%202/Games/Sprites/
 
+health: myself
